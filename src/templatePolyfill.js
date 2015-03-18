@@ -27,4 +27,6 @@ function templatePolyfill(d) {
 	}
 }
 
-module.exports = templatePolyfill;
+module.exports = {
+	apply: templatePolyfill
+};

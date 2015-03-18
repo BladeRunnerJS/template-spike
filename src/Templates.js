@@ -1,5 +1,6 @@
 'use strict';
 
+require('./importNodePolyfill');
 var templatePolyfill = require('./templatePolyfill');
 
 function Templates() {
@@ -25,7 +26,7 @@ Templates.prototype.add = function(templateId, templateHtml) {
 	document.body.appendChild(templateElem);
 
 	// Needed for IE8+
-	templatePolyfill(document);
+	templatePolyfill.apply(document);
 };
 
 Templates.prototype.get = function(templateId) {
