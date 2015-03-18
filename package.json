@@ -1,0 +1,15 @@
+{
+	"name": "template-spike",
+	"description": "BJRS Template Spike.",
+	"main": "index.js",
+	"devDependencies": {
+		"mocha": "latest",
+		"chai": "latest",
+		"browserify": "latest",
+		"watchify": "latest"
+	},
+	"scripts": {
+		"build": "browserify test/template.spec.js -o bin/tests.min.js",
+		"build:watch": "watchify test/template.spec.js -o bin/tests.min.js"
+	}
+}
