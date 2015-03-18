@@ -24,32 +24,38 @@ describe('templates', function() {
 	it('provides document fragments that have the same content when added to the document', function() {
 		templates.add('id', '<span></span>');
 		document.querySelector('#content').appendChild(templates.get('id'));
-		expect(document.querySelector('#content').innerHTML).to.equal('<span></span>');
+		expect(innerHTML(document.querySelector('#content'))).to.equal('<span></span>');
 	});
 
 	it('supports templates that have more than one child node', function() {
 		templates.add('id', '<span></span><div></div>');
 		document.querySelector('#content').appendChild(templates.get('id'));
-		expect(document.querySelector('#content').innerHTML).to.equal('<span></span><div></div>');
+		expect(innerHTML(document.querySelector('#content'))).to.equal('<span></span><div></div>');
 	});
 
 	it('supports templates that have mixed text and element content', function() {
+		templates.add('id', '<span></span> + <div></div>');
+		document.querySelector('#content').appendChild(templates.get('id'));
+		expect(innerHTML(document.querySelector('#content'))).to.equal('<span></span> + <div></div>');
+	});
+
+	it('supports templates that have leading and trailing whitespace', function() {
 		templates.add('id', ' <span></span> + <div></div>  ');
 		document.querySelector('#content').appendChild(templates.get('id'));
-		expect(document.querySelector('#content').innerHTML).to.equal(' <span></span> + <div></div>  ');
+		expect(innerHTML(document.querySelector('#content'))).to.equal(' <span></span> + <div></div>  ');
 	});
 
 	it('supports templates that contain nested elements that can only be used in certain contexts', function() {
 		templates.add('id', '<td></td>');
 		document.querySelector('#content').innerHTML = '<table><tbody><tr></tr></tbody></table>';
 		document.querySelector('#content tr').appendChild(templates.get('id'));
-		expect(document.querySelector('#content').innerHTML).to.equal('<table><tbody><tr><td></td></tr></tbody></table>');
+		expect(innerHTML(document.querySelector('#content'))).to.equal('<table><tbody><tr><td></td></tr></tbody></table>');
 	});
 
 	it('allows context dependent templates to be used anywhere', function() {
 		templates.add('id', '<td></td>');
 		document.querySelector('#content').appendChild(templates.get('id'));
-		expect(document.querySelector('#content').innerHTML).to.equal('<td></td>');
+		expect(innerHTML(document.querySelector('#content'))).to.equal('<td></td>');
 	});
 
 	it('allows multiple templates to be used at the same time', function() {
@@ -57,6 +63,10 @@ describe('templates', function() {
 		templates.add('id2', '<div></div>');
 		document.querySelector('#content').appendChild(templates.get('id1'));
 		document.querySelector('#content').appendChild(templates.get('id2'));
-		expect(document.querySelector('#content').innerHTML).to.equal('<span></span><div></div>');
+		expect(innerHTML(document.querySelector('#content'))).to.equal('<span></span><div></div>');
 	});
 });
+
+function innerHTML(elem) {
+	return elem.innerHTML.toLowerCase().replace(/\r\n/g, '');
+}
