@@ -3,6 +3,7 @@
 	"description": "BJRS Template Spike.",
 	"main": "index.js",
 	"devDependencies": {
+		"html5shiv": "latest",
 		"mocha": "latest",
 		"expect.js": "latest",
 		"browserify": "latest",
