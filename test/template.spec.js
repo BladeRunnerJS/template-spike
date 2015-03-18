@@ -45,6 +45,12 @@ describe('templates', function() {
 		expect(innerHTML(document.querySelector('#content'))).to.equal(' <span></span> + <div></div>  ');
 	});
 
+	it('supports templates containing exotic elements', function() {
+		templates.add('id', '<ul><li>item #1</li><li>item #2</li></ul>');
+		document.querySelector('#content').appendChild(templates.get('id'));
+		expect(innerHTML(document.querySelector('#content'))).to.equal('<ul><li>item #1</li><li>item #2</li></ul>');
+	});
+
 	it('supports templates that contain nested elements that can only be used in certain contexts', function() {
 		templates.add('id', '<td></td>');
 		document.querySelector('#content').innerHTML = '<table><tbody><tr></tr></tbody></table>';
