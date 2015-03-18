@@ -1,6 +1,6 @@
 'use strict';
 
-var expect = require('chai').expect;
+var expect = require('expect.js');
 var Templates = require('../src/Templates');
 
 describe('templates', function() {
@@ -12,8 +12,8 @@ describe('templates', function() {
 
 	it('provides document fragments', function() {
 		templates.add('id', '<span></span>');
-		expect(templates.get('id').outerHTML).to.be.undefined;
-		expect(templates.get('id') instanceof DocumentFragment).to.be.true;
+		expect(templates.get('id').outerHTML).to.be(undefined);
+		expect(templates.get('id') instanceof DocumentFragment).to.be(true);
 	});
 
 	it('provides a new document fragment each time it is invoked', function() {
